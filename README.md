@@ -27,38 +27,6 @@ OPD constructs a query-side prototype from the model's current coarse query acti
 
 OPD regularizes the query states that the model actually visits during optimization. It is used only during training and introduces no additional inference-time branch.
 
-## Available Components
-
-The current code is organized as a small, dependency-light PyTorch package:
-
-- `DGCNNBackbone`: a dynamic graph CNN that returns point-level features.
-- `StratifiedTransformerBackbone`: an adapter for external Stratified Transformer encoders using either batched inputs or flattened features, coordinates, and offsets.
-- `masked_average_pool`: class-wise support prototype initialization.
-- `TopologyGuidedPrototypeCalibration`: candidate expansion, bounded masked topology encoding, topology-aware scoring, and prototype aggregation.
-- `OnPolicyPrototypeDistillation`: activation-weighted query prototype construction and temperature-scaled prototype-level KL distillation.
-- `ToPoOPD`: an episodic composition of the backbone, ToPo, cosine prototype classification, and training-only OPD.
-
-The component interface expects point tensors in `[batch, points, channels]` format and support masks in `[batch, classes, points]` format. A background mask can be supplied as an additional class channel when required by the episodic protocol.
-
-Topology descriptors use at most 512 foreground points per class by default to keep neighborhood construction practical in multi-shot episodes. This limit is configurable and does not change masked-average prototype pooling, which still uses all support features.
-
-```python
-from topo_opd import DGCNNBackbone, ToPoOPD
-
-backbone = DGCNNBackbone(
-    input_dim=6,
-    edge_dims=(64, 64, 128),
-    output_dim=192,
-)
-model = ToPoOPD(backbone=backbone, feature_dim=192)
-
-output = model(support_points, support_masks, query_points)
-logits = output["logits"]
-opd_loss = output.get("opd_loss")
-```
-
-The training objective can combine the task-specific segmentation loss with `opd_loss`. The OPD branch is automatically omitted in evaluation mode.
-
 ## Backbones and Planned Experiments
 
 The current manuscript uses DGCNN following the established few-shot point cloud segmentation pipeline. The code also exposes a Stratified Transformer adapter so that the same ToPo and OPD modules can be evaluated with a stronger hierarchical point encoder without coupling this repository to custom CUDA operators.
@@ -96,3 +64,7 @@ To be added progressively:
 ## Citation
 
 Citation information will be added after the paper metadata is finalized.
+
+## Acknowledgement
+
+We thank the authors of DGCNN and Stratified Transformer for their excellent work.
