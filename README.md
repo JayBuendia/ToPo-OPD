@@ -2,7 +2,7 @@
 
 Official project repository for **Topology-Calibrated Prototype Distillation for Few-shot Point Cloud Segmentation**.
 
-> This first release provides the core model components. Training, dataset, and evaluation scripts will be added after the experiment pipeline is finalized.
+> The complete implementation will be released.
 
 ## Overview
 
@@ -41,25 +41,6 @@ Future experiments will study additional backbone families, topology neighborhoo
 - Evaluated under standard 2-way/3-way and 1-shot/5-shot settings.
 - Experiments cover the S3DIS and ScanNet indoor point cloud benchmarks.
 - The current manuscript reports the best mean IoU in seven of eight evaluated settings.
-
-## Repository Status
-
-Available now:
-
-- Core DGCNN backbone
-- Stratified Transformer adapter
-- Topology-guided prototype calibration
-- On-policy prototype distillation
-- End-to-end episodic model composition
-
-To be added progressively:
-
-- Training and evaluation code
-- Dataset preparation instructions
-- Experiment configurations
-- Pretrained checkpoints
-- Reproduction commands
-- Detailed quantitative and qualitative results
 
 ## Citation
 
