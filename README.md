@@ -67,4 +67,4 @@ Citation information will be added after the paper metadata is finalized.
 
 ## Acknowledgement
 
-We thank the authors of DGCNN and Stratified Transformer for their excellent work.
+We thank the authors of [DGCNN](https://github.com/WangYueFt/dgcnn) and [Stratified Transformer](https://github.com/dvlab-research/Stratified-Transformer) for their excellent work.
